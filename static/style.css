@@ -1,0 +1,254 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    color: #1e293b;
+}
+
+header {
+    background-color: #1e40af;
+    color: white;
+    padding: 24px 40px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+header p {
+    font-size: 15px;
+    color: #bfdbfe;
+}
+
+main {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: #1e40af;
+    border-bottom: 2px solid #dbeafe;
+    padding-bottom: 10px;
+}
+
+.upload-area {
+    border: 2px dashed #93c5fd;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    background: #f8faff;
+    margin-bottom: 16px;
+}
+
+.upload-area p {
+    margin-top: 10px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+#preview {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+.hint {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #475569;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    color: #1e293b;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-primary {
+    background-color: #1e40af;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #1d3a9e;
+}
+
+.btn-upload {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-upload:hover {
+    background-color: #2563eb;
+}
+
+.btn-success {
+    background-color: #16a34a;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.btn-success:hover {
+    background-color: #15803d;
+}
+
+.btn-danger {
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.btn-danger:hover {
+    background-color: #b91c1c;
+}
+
+.btn-secondary {
+    background-color: #475569;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 16px;
+}
+
+.btn-secondary:hover {
+    background-color: #334155;
+}
+
+#status-message {
+    padding: 14px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    text-align: center;
+}
+
+#status-message.success {
+    background-color: #dcfce7;
+    color: #16a34a;
+    border: 1px solid #86efac;
+}
+
+#status-message.error {
+    background-color: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fca5a5;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+table th {
+    background-color: #1e40af;
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+}
+
+table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+table tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+table tr:hover {
+    background-color: #eff6ff;
+}
+
+#records-table-container {
+    overflow-x: auto;
+}

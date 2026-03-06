@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postal OCR System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Postal Department OCR System</h1>
+        <p>Upload a form image to extract and verify data</p>
+    </header>
+
+    <main>
+
+        <!-- Upload Section -->
+        <section class="card" id="upload-section">
+            <h2>Step 1 — Upload Form Image</h2>
+            <div class="upload-area" id="upload-area">
+                <input type="file" id="imageInput" accept="image/*" hidden>
+                <button class="btn-upload" onclick="document.getElementById('imageInput').click()">
+                    Choose Image
+                </button>
+                <p id="file-name">No file chosen</p>
+            </div>
+            <img id="preview" src="" alt="Preview" hidden>
+            <button class="btn-primary" id="extractBtn" onclick="extractText()">
+                Extract Text
+            </button>
+        </section>
+
+        <!-- Verification Section -->
+        <section class="card" id="verify-section" hidden>
+            <h2>Step 2 — Verify Extracted Data</h2>
+            <p class="hint">Review the extracted fields below. Edit any incorrect values before saving.</p>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="field-name" placeholder="Extracted name will appear here">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" id="field-phone" placeholder="Extracted phone will appear here">
+                </div>
+                <div class="form-group">
+                    <label>Pincode</label>
+                    <input type="text" id="field-pincode" placeholder="Extracted pincode will appear here">
+                </div>
+                <div class="form-group full-width">
+                    <label>Address</label>
+                    <textarea id="field-address" rows="3" 
+                              placeholder="Extracted address will appear here"></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label>Remarks</label>
+                    <textarea id="field-remarks" rows="2" 
+                              placeholder="Extracted remarks will appear here"></textarea>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-success" onclick="saveForm()">
+                    Approve and Save
+                </button>
+                <button class="btn-danger" onclick="resetForm()">
+                    Reject and Reset
+                </button>
+            </div>
+        </section>
+
+        <!-- Status Message -->
+        <div id="status-message" hidden></div>
+
+        <!-- Records Section -->
+        <section class="card" id="records-section">
+            <h2>Past Records</h2>
+            <button class="btn-secondary" onclick="loadRecords()">
+                Load Records
+            </button>
+            <div id="records-table-container"></div>
+        </section>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
