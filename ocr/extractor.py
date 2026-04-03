@@ -160,9 +160,9 @@ def _init_engines():
         global torch
         import torch
         print("[OCR] Loading TrOCR model (microsoft/trocr-base-handwritten)...")
-        trocr_processor = TrOCRProcessor.from_pretrained("microsoft/trocr-base-handwritten")
+        trocr_processor = TrOCRProcessor.from_pretrained("microsoft/trocr-base-handwritten", low_cpu_mem_usage=True)
         trocr_model     = VisionEncoderDecoderModel.from_pretrained(
-                              "microsoft/trocr-base-handwritten")
+                              "microsoft/trocr-base-handwritten", low_cpu_mem_usage=True)
         trocr_model.eval()
         TROCR_AVAILABLE = True
         print("[OCR] TrOCR loaded — PRIMARY engine active.")

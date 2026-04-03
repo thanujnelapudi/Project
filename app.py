@@ -23,6 +23,16 @@ app.secret_key = SECRET_KEY
 # Generated fresh each server start — invalidates all old session cookies on restart
 SERVER_SESSION_TOKEN = secrets.token_hex(8)
 
+# Initialize database tables on server start
+from database.db_handler import create_table, create_user_table, create_activity_table
+try:
+    create_table()
+    create_user_table()
+    create_activity_table()
+    print("[DB] Tables initialized successfully.")
+except Exception as e:
+    print(f"[DB] Initialization warning: {e}")
+
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
@@ -383,4 +393,4 @@ def add_header(response):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=False)
