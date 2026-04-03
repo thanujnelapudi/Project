@@ -21,23 +21,7 @@ COPY . .
 
 # Environment variables for production
 ENV FLASK_APP=app.py
-ENV FLASK_ENV=production
 ENV PYTHONUNBUFFERED=1
-ENV DATABASE_TYPE=sqlite
-ENV DB_PATH=/app/database/app.sqlite
-ENV TESSERACT_PATH=tesseract
-
-# Pre-cache models so they are baked into the container
-# This reduces first-run latency on Railway significantly
-RUN python -c "from transformers import VisionEncoderDecoderModel, ViTImageProcessor, AutoTokenizer; \
-    model_name = 'microsoft/trocr-base-handwritten'; \
-    VisionEncoderDecoderModel.from_pretrained(model_name); \
-    ViTImageProcessor.from_pretrained(model_name); \
-    AutoTokenizer.from_pretrained(model_name)"
-
-# Pre-cache PaddleOCR models (Simplified trigger)
-# Note: PaddleOCR downloads to ~/.paddlex or ~/.paddleocr by default
-RUN python -c "from paddleocr import PaddleOCR; PaddleOCR(use_angle_cls=True, lang='en')"
 
 # Expose port and start
 EXPOSE 5000
