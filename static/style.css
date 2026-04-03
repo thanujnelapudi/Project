@@ -1,15 +1,17 @@
 :root {
-    /* Enterprise Color Palette */
-    --primary-blue: #0B1F3B;
+    /* Premium Intelligence Palette */
+    --primary-blue: #0A192F;
     --bg-white: #FFFFFF;
-    --bg-soft-gray: #F5F7FA;
+    --bg-soft-gray: #F8FAFC;
     --accent-blue: #3A7BFF;
     --tech-accent: #0FB9B1;
-    --text-main: #1e293b;
-    --text-muted: #64748b;
-    --border-color: #e2e8f0;
-    --success-green: #16a34a;
-    --error-red: #dc2626;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --text-main: #0F172A;
+    --text-muted: #475569;
+    --border-color: #E2E8F0;
+    --success-green: #10B981;
+    --error-red: #EF4444;
 }
 
 * {
@@ -67,13 +69,15 @@ body {
 
 /* ── Enterprise Header ──────────────────────────────────────────────── */
 .ent-header {
-    background-color: var(--bg-white);
-    border-bottom: 1px solid var(--border-color);
-    padding: 16px 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 14px 0;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
 }
 
 .header-content {
@@ -148,20 +152,25 @@ body {
 }
 
 .hero-section h2 {
-    font-size: 42px;
-    font-weight: 800;
+    font-size: 48px;
+    font-weight: 850;
     color: var(--primary-blue);
-    margin-bottom: 20px;
-    letter-spacing: -1px;
-    line-height: 1.2;
+    margin-bottom: 24px;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-blue) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .hero-section p {
-    font-size: 18px;
+    font-size: 19px;
     color: var(--text-muted);
     max-width: 650px;
     margin: 0 auto;
-    line-height: 1.6;
+    line-height: 1.7;
+    font-weight: 450;
 }
 
 /* ── Features Section ───────────────────────────────────────────────── */
@@ -299,17 +308,21 @@ body {
 }
 
 .card, .app-card {
-    background: var(--bg-white);
-    border-radius: 12px;
-    padding: 32px;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--border-color);
-    transition: box-shadow 0.3s ease;
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 36px;
+    margin-bottom: 28px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--glass-border);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card:hover, .app-card:hover {
-    box-shadow: 0 10px 20px rgba(11, 31, 59, 0.06);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(11, 31, 59, 0.1);
+    border-color: rgba(58, 123, 255, 0.3);
 }
 
 .card-header {
