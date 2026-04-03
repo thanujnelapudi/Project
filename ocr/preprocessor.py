@@ -15,7 +15,7 @@ def preprocess_image(image_path):
         print("Error: Could not read image.")
         return None
 
-    # Resize only if image is very large
+    # Resize if too large
     max_width = 1800
     height, width = img.shape[:2]
     if width > max_width:
@@ -29,11 +29,36 @@ def preprocess_image(image_path):
     # Convert to grayscale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    # Simple threshold - fast and effective for printed forms
+    # Check if image is dark (mean brightness below 127)
+    mean_brightness = np.mean(gray)
+    print(f"Image brightness: {mean_brightness:.1f}")
+
+    if mean_brightness < 127:
+        # Image is dark - invert it first
+        gray = cv2.bitwise_not(gray)
+        print("Image inverted due to dark background")
+
+    # Increase contrast
+    clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8,8))
+    contrast = clahe.apply(gray)
+
+    # Simple threshold
     _, thresh = cv2.threshold(
-        gray, 0, 255,
+        contrast, 0, 255,
         cv2.THRESH_BINARY + cv2.THRESH_OTSU
     )
+
+    # Check if result is mostly black (inverted result)
+    white_pixels = np.sum(thresh == 255)
+    total_pixels = thresh.shape[0] * thresh.shape[1]
+    white_ratio = white_pixels / total_pixels
+
+    print(f"White pixel ratio: {white_ratio:.2f}")
+
+    # If less than 40% white pixels, image is inverted
+    if white_ratio < 0.40:
+        thresh = cv2.bitwise_not(thresh)
+        print("Threshold result inverted to fix black background")
 
     base, ext = os.path.splitext(image_path)
     processed_path = base + "_processed" + ext

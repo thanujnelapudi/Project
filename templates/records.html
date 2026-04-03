@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Records History – Postal OCR System</title>
+    <meta name="description" content="View all saved postal form records.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Background Grid & Watermark Structure added via CSS -->
+    <div class="bg-grid"></div>
+    <div class="bg-watermark">AI</div>
+
+    <!-- ── Enterprise Header ────────────────────────────────────────────── -->
+    <header class="ent-header">
+        <div class="header-content">
+            <div class="header-logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <div class="logo-text">
+                    <h1>Records History</h1>
+                    <span>Enterprise Edition</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a href="{{ url_for('index') }}" class="btn-nav">← Back to Scanner</a>
+                <a href="{{ url_for('manage_users') }}" class="btn-nav">Manage Operators</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main container scroll-fade-in" style="margin-top: 40px; opacity: 1; transform: translateY(0);">
+        <section class="card">
+            <h2>Search &amp; Filter</h2>
+            <div class="form-group" style="max-width:420px;">
+                <label for="search-input">Filter by Name or Operator</label>
+                <input type="text" id="search-input" placeholder="Type to filter…" oninput="filterRecords()">
+            </div>
+        </section>
+
+        <section class="card" id="records-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin: 0;">All Records</h2>
+                {% if session.get('is_admin') %}
+                <a href="{{ url_for('export_csv') }}" class="btn-primary" style="text-decoration: none; padding: 8px 16px; font-size: 14px; border-radius: 6px;">Download CSV</a>
+                {% endif %}
+            </div>
+            <div id="status-message" hidden></div>
+            <div id="records-table-container">
+                <p class="hint" id="loading-msg">Loading records…</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- ── Enterprise Footer ────────────────────────────────────────────── -->
+    <footer class="ent-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <div class="logo-icon small">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                </div>
+                <span>FormDigitizer Enterprise</span>
+            </div>
+            <div class="footer-links">
+                <span class="security-notice">Platform designed for secure document digitization.</span>
+                <span class="footer-divider">|</span>
+                <a href="{{ url_for('logout') }}" class="footer-link">Secure Sign Out</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let allRecords = [];
+
+        async function loadRecords() {
+            try {
+                const res  = await fetch('/records', { credentials: 'include' });
+                
+                if (res.status === 401) {
+                    alert('Session expired. Please log in again.');
+                    window.location.href = '/login';
+                    return;
+                }
+
+                const data = await res.json();
+                if (data.success) {
+                    allRecords = data.records;
+                    renderTable(allRecords);
+                } else {
+                    showError('Failed to load records.');
+                }
+            } catch (err) {
+                showError('Network error — could not load records.');
+            }
+        }
+
+        function renderTable(records) {
+            const container = document.getElementById('records-table-container');
+            document.getElementById('loading-msg')?.remove();
+
+            if (!records || records.length === 0) {
+                container.innerHTML = '<p class="hint" style="text-align:center; padding:24px;">No records found.</p>';
+                return;
+            }
+
+            let html = `
+                <div id="records-table-container-inner">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Pincode</th>
+                            <th>Remarks</th>
+                            <th>Operator</th>
+                            <th>Date / Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
+            for (const r of records) {
+                const dt = r.created_at ? r.created_at.replace('T', ' ').split('.')[0] : '—';
+                html += `
+                    <tr>
+                        <td>${escHtml(String(r.id))}</td>
+                        <td>${escHtml(r.name || '—')}</td>
+                        <td>${escHtml(r.address || '—')}</td>
+                        <td>${escHtml(r.pincode || '—')}</td>
+                        <td>${escHtml(r.remarks || '—')}</td>
+                        <td>${escHtml(r.operator || '—')}</td>
+                        <td style="white-space:nowrap;">${escHtml(dt)}</td>
+                    </tr>`;
+            }
+
+            html += `</tbody></table></div>`;
+            container.innerHTML = html;
+        }
+
+        function filterRecords() {
+            const q = document.getElementById('search-input').value.toLowerCase();
+            if (!q) {
+                renderTable(allRecords);
+                return;
+            }
+            const filtered = allRecords.filter(r =>
+                (r.name     || '').toLowerCase().includes(q) ||
+                (r.operator || '').toLowerCase().includes(q)
+            );
+            renderTable(filtered);
+        }
+
+        function showError(msg) {
+            const el = document.getElementById('status-message');
+            el.className = 'error';
+            el.textContent = msg;
+            el.removeAttribute('hidden');
+        }
+
+        function escHtml(str) {
+            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        loadRecords();
+    </script>
+</body>
+</html>

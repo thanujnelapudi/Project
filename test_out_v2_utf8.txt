@@ -1,0 +1,64 @@
+﻿Running OCR on: uploads\Gemini_Generated_Image_2qvor92qvor92qvo_processed_processed_processed.png
+
+[OCR] Initializing OCR Engines (this may take a moment on first use)...
+[OCR] Loading TrOCR model (microsoft/trocr-base-handwritten)...
+[OCR] TrOCR loaded ù PRIMARY engine active.
+[OCR] Loading PaddleOCR mobile models...
+[OCR] PaddleOCR loaded ù BACKUP engine active.
+[OCR] Engine initialization complete.
+
+Image brightness: 211.5
+White pixel ratio: 0.83
+[OCR] STAGE 1: Fast Label Detection (Tesseract)...
+[OCR] Form type  : bank_kyc (operator selected)
+
+[OCR] STAGE 2: Precision Value Extraction (TrOCR)...
+[CROP DEBUG] first_name saved to D:\personal\Projects\postal_ocr\ocr\crop_debug\first_name.png
+[CROP COORDS] first_name: left=779 top=504 right=1379 bottom=549 | image_size=(1800, 1595)
+[OCR]   [first_name] ink_pixels=390
+[OCR]   [first_name] Label: 'Prefix First Name' | TrOCR: ''
+
+[OCR] Final Synthetic Text (Mixed Tesseract/TrOCR):
+Know Your Customer (KYC) Application Form | Individual
+(mportant Instructions:
+A. Fields marked with '* are mandatory fields. F. Please read section wise detailed guide
+B. Tickô wherever applicable. G. List of State/U.T code as per Indian Motor Vehicle Act, 1986 is available at the end.
+C. Please fill the form in English and BLOCK letters. H. List of two character ISO 3166 country codes is available at the end.
+D. Please fill the date in DD-MM-YY format. i. KYC number of applicant is mandatory for update application.
+E. J.
+For particular section update, please tick () in the box The æOTP based E-KYCÆ check box is to be checked for accounts opened using
+section number and strike off the sections not OTP based E-KYC in non-face to face mode
+required to be updated.
+æor office use only:
+lito be lilled by financial inst
+L] 1. Personal Det (Please refe nAat the end)
+first_name 
+C1 Namet (Same as 1D proof) [MIR] [ILOTHIN] LUI QIUIZINICIYI 1 | SIMITITIHIT TT 1]
+Maiden Name LTTTT TT] [LTT TTT LT
+Father / Spouse Name* RIOIBIETRIT SIMITITIH LLTTITITITT TT TTTTTT TT
+Mother Name M_AIRILY JIOINIE[S [TTTTTTTTTT I | LI
+Gender* (M- Male CIF- Female [1 T- Transgender
+PAN* AIBICIDIPl1I[2/3/41E FORM 60 fumished
+Marital Status* ay Married Unmarried [] Others
+Citizenship* a IN- tndian Others ù Country Country Code [_f
+Residential Status* uA Resident Individual L_! Non Resident Indion A Foreign National OO Person of Indian Origin
+[_ 2. PROOF OF IDENTITY AND ADDRESS* (Please refer instruction B at the end)
+Certified copy of OVD or equivalent e-document of OVD or OVD obtained through digital KYC process needs to be submitted (anyone of the following OVDs)
+[A A-Passport Number [ST7[S8[9[Ol1 1213] Passport Expiry Date [1 [4] - [015] - (2[O[3[0 PHOTO"
+([] B-Voter ID Card LLLIITLITL)
+[J C-Driving Licence = f_| Driving Licence Expiry Date | D - [M[M] - YIV[YTÑ
+(1) D-NREGA Job Card LTT TET TTTT |
+(] ENational Population Register Letter [TT TT TT TTT TTT TTET TT rity)
+(CJ F-Proof of Possession of Aadhaar No need to attach, Aachaar card. if submitted, Aadhaar Namber to be masked by the customer
+u | E-KYC Authentication No need to atfach, Aadhaar card. if submitted, Aadhaar Namber to be masked by the customer
+It oO Offline verification of Aadhaar No need to attach, Aadhaar card. if submitted, Aadhaar Namber to be masked by the customer æSignature /Thumb Impression
+across photo without covering
+Address {For other than resident individual, please mention Overseas Address} the face
+Line 1* 11/2/31 IMIAITINI IsitiRielem] TTT TT TTT TTT tt ttt titi tr tri tt oT)
+Line 2 (AIPITT T4Jol4] TTT TTT TITTITTI TTT ITT itr Trr rrr rrr titi ttt
+Line 3 NIEJAIR] IPIAIRIKE TT TPT TTT TTT TTT TT TT) ù Ciyrtownvitages [_ICIHIEININIAIZT 1]
+District« C\HIEININIAITI PinPost Cadet }6OlOIO! 1/8] State/l) T Code* | TIN) 180 9166 Country Code* | INI
+==================================================
+[OCR] Fields     : {'full_name': 'MIRILOTHIN', 'father_spouse_name': 'RIOIBIETRIT SIMITITIH LLTTITITITT TT TTTTTT TT', 'mother_name': 'M_AIRILY JIOINIE S TTTTTTTTTT LI', 'date_of_birth': '78-91-1213', 'pan_number': '', 'passport_number': 'OL112134015', 'driving_licence': 'EXPIRYDATEDMMYIVYT', 'aadhaar_number': '', 'address_line1': '11 2 31 IMIAITINI ISITIRIELEM TTT TT TTT TTT TT TTT TITI TR TRI TT OT)', 'address_line2': '(AIPITT T4JOL4 TTT TTT TITTITTI TTT ITT ITR TRR RRR RRR TITI TTT', 'address_line3': 'ICIHIEININIAIZT1', 'city': '', 'district': '« C\\HIEININIAITI PINPOST CADET }6OLOIO! 8 STATE ) T CODE* TIN) 180 9166 COUNTRY CODE* INI', 'pin_code': '', 'kyc_number': 'OFAPPLICANTISMANDATORYFORUPDATEAPPLICATION'}
+[OCR] Confidence : {'full_name': 85, 'father_spouse_name': 85, 'mother_name': 85, 'date_of_birth': 80, 'pan_number': 0, 'passport_number': 85, 'driving_licence': 85, 'aadhaar_number': 0, 'address_line1': 85, 'address_line2': 85, 'address_line3': 85, 'city': 0, 'district': 80, 'pin_code': 0, 'kyc_number': 70}
+Extracted fields: {'full_name': 'MIRILOTHIN', 'father_spouse_name': 'RIOIBIETRIT SIMITITIH LLTTITITITT TT TTTTTT TT', 'mother_name': 'M_AIRILY JIOINIE S TTTTTTTTTT LI', 'date_of_birth': '78-91-1213', 'pan_number': '', 'passport_number': 'OL112134015', 'driving_licence': 'EXPIRYDATEDMMYIVYT', 'aadhaar_number': '', 'address_line1': '11 2 31 IMIAITINI ISITIRIELEM TTT TT TTT TTT TT TTT TITI TR TRI TT OT)', 'address_line2': '(AIPITT T4JOL4 TTT TTT TITTITTI TTT ITT ITR TRR RRR RRR TITI TTT', 'address_line3': 'ICIHIEININIAIZT1', 'city': '', 'district': '« C\\HIEININIAITI PINPOST CADET }6OLOIO! 8 STATE ) T CODE* TIN) 180 9166 COUNTRY CODE* INI', 'pin_code': '', 'kyc_number': 'OFAPPLICANTISMANDATORYFORUPDATEAPPLICATION'}

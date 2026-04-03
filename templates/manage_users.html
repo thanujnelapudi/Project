@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Operators – Postal OCR</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <header class="ent-header">
+        <div class="header-content container">
+            <div class="header-logo" onclick="location.href='{{ url_for('index') }}'" style="cursor:pointer">
+                <div class="logo-text"><h1>FormDigitizer</h1><span>Admin Console</span></div>
+            </div>
+            <div class="header-actions">
+                <a href="{{ url_for('index') }}" class="btn-nav">Dashboard</a>
+                <a href="{{ url_for('activity') }}" class="btn-nav">Activity Feed</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-5">
+        
+        <!-- Pending Approvals -->
+        {% if pending %}
+        <section class="card border-warning mb-5 p-4">
+            <h2 class="h4 text-warning mb-4">Pending Registrations</h2>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Operator Details</th>
+                            <th>ID Number</th>
+                            <th>Department</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in pending %}
+                        <tr>
+                            <td>
+                                <strong>{{ user.full_name }}</strong><br>
+                                <span class="text-muted small">@{{ user.username }} &middot; {{ user.role }}</span>
+                            </td>
+                            <td>{{ user.id_number }}</td>
+                            <td>{{ user.department }}</td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <form method="POST" action="{{ url_for('approve_user') }}">
+                                        <input type="hidden" name="username" value="{{ user.username }}">
+                                        <input type="hidden" name="action" value="approve">
+                                        <button type="submit" class="btn-success btn-sm">Approve</button>
+                                    </form>
+                                    <form method="POST" action="{{ url_for('approve_user') }}">
+                                        <input type="hidden" name="username" value="{{ user.username }}">
+                                        <input type="hidden" name="action" value="reject">
+                                        <button type="submit" class="btn-danger btn-sm">Reject</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Active Users -->
+        <section class="card p-4">
+            <h2 class="h4 mb-4">Active Operators</h2>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Role</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        {% if user.status != 'PENDING' %}
+                        <tr>
+                            <td>
+                                <strong>{{ user.full_name or user.username }}</strong><br>
+                                <span class="text-muted small">@{{ user.username }}</span>
+                            </td>
+                            <td>{{ user.role or 'Operator' }}</td>
+                            <td>{{ user.department or 'N/A' }}</td>
+                            <td><span class="status-badge {{ user.status|lower }}">{{ user.status }}</span></td>
+                            <td>{{ '✅' if user.is_admin else '❌' }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <style>
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .approved { background: #dcfce7; color: #166534; }
+        .rejected { background: #fee2e2; color: #991b1b; }
+        .btn-sm { padding: 6px 12px; font-size: 12px; cursor: pointer; border-radius: 6px; border: none; font-weight: 600; }
+        .btn-success { background: #22c55e; color: white; }
+        .btn-danger { background: #ef4444; color: white; }
+    </style>
+</body>
+</html>

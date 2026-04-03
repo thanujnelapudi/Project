@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up – Postal OCR System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-body">
+
+    <div class="login-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2" style="background: #34d399;"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="login-wrapper">
+        <div class="login-brand">
+            <div class="login-brand-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="17" y1="11" x2="23" y2="11"/>
+                </svg>
+            </div>
+            <span class="login-brand-name">Portal Registration</span>
+        </div>
+
+        <div class="login-card" style="max-width: 500px;">
+            <div class="login-card-header">
+                <h1>Create Account</h1>
+                <p>Register as a new system operator</p>
+            </div>
+
+            {% if error %}
+            <div class="login-alert login-alert-error">
+                <span>{{ error }}</span>
+            </div>
+            {% endif %}
+
+            <form method="POST" action="{{ url_for('signup') }}" id="signup-form">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="login-field">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required placeholder="Unique ID">
+                    </div>
+                    <div class="login-field">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required placeholder="••••••••">
+                    </div>
+                </div>
+
+                <div class="login-field">
+                    <label for="full_name">Full Name</label>
+                    <input type="text" id="full_name" name="full_name" required placeholder="John Doe">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="login-field">
+                        <label for="department">Department</label>
+                        <input type="text" id="department" name="department" required placeholder="Logistics">
+                    </div>
+                    <div class="login-field">
+                        <label for="id_number">Employee ID</label>
+                        <input type="text" id="id_number" name="id_number" required placeholder="EMP-000">
+                    </div>
+                </div>
+
+                <div class="login-field">
+                    <label for="role">Requested Role</label>
+                    <select id="role" name="role" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <option value="Operator">Operator</option>
+                        <option value="Supervisor">Supervisor</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <span class="login-btn-label">Register Account</span>
+                </button>
+            </form>
+
+            <div style="margin-top: 20px; text-align: center; font-size: 14px;">
+                <p>Already have an account? <a href="{{ url_for('login') }}" style="color: #3A7BFF; font-weight: 600; text-decoration: none;">Sign In</a></p>
+            </div>
+        </div>
+
+        <p class="login-footer">Note: All new registrations require administrator approval before access is granted.</p>
+    </div>
+
+</body>
+</html>
